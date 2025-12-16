@@ -1,0 +1,7 @@
+{
+  "name": "DAVID AI - COVID Assistance",
+  "description": "An AI-powered assistant for COVID-19 information and visual health analysis (SDG 3).",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
