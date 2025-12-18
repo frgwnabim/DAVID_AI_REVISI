@@ -1,60 +1,65 @@
-# DAVID_AI_REVISI — Usage Guide ✅
+# DAVID_AI_REVISI — Panduan Singkat (Bahasa Indonesia)
 
-A concise guide to run, test, and deploy this project.
+Panduan singkat ini dibuat agar siapapun (termasuk non-teknis) bisa menjalankan dan men-deploy proyek ini.
 
 ---
 
-## 1) Prerequisites
-- Node.js (18+ recommended)
+## 1) Apa yang perlu disiapkan
+- Node.js (versi 18 atau lebih baru) 
 - Git
 
-## 2) Install (local)
-1. Install dependencies:
+## 2) Cara install (di komputer Anda)
+1. Buka terminal di folder proyek, lalu jalankan:
    ```bash
    npm install
    ```
-2. Copy `.env.example` → `.env` and set your Gemini API key:
+2. Salin file contoh `.env.example` menjadi `.env` dan isi kunci Gemini Anda:
    ```text
-   VITE_GEMINI_API_KEY=YOUR_GEMINI_API_KEY_HERE
+   VITE_GEMINI_API_KEY=ISIKAN_API_KEY_ANDA_DI_SINI
    ```
-   **Important:** Do NOT commit `.env` (it's in `.gitignore`).
+   **Penting:** jangan upload/commit file `.env` ke GitHub — file ini sudah ada di `.gitignore`.
 
-## 3) Run locally
-```bash
-npm run dev
-```
-Open http://localhost:3000 to view the app.
+## 3) Cara menjalankan aplikasi secara lokal
+1. Jalankan:
+   ```bash
+   npm run dev
+   ```
+2. Buka browser ke: http://localhost:3000
 
-## 4) Build for production
-```bash
-npm run build
-```
-The build output will be placed in `dist/`.
+## 4) Cara membuat versi produksi (build)
+1. Jalankan:
+   ```bash
+   npm run build
+   ```
+2. Hasil build ada di folder `dist/`.
+3. Untuk melihat hasil build secara lokal:
+   ```bash
+   npm run preview
+   ```
 
-## 5) Deploy to GitHub Pages (automatic)
-This repository includes a GitHub Actions workflow that builds and deploys `dist/` to the `gh-pages` branch.
+## 5) Cara deploy ke GitHub Pages (otomatis)
+Proyek ini sudah punya workflow GitHub Actions yang otomatis membangun dan mem-publish folder `dist/` ke branch `gh-pages`.
 
-Steps to enable working deploy:
-1. Create a Personal Access Token (PAT) on GitHub with `repo` and `workflow` scopes (recommended) or ensure Actions can write Pages.
-2. Add the following repository secrets (Settings → Secrets & variables → Actions):
-   - `GH_PAGES_TOKEN` — the PAT you created
-   - `VITE_GEMINI_API_KEY` — your Gemini API key (optional for production builds)
-3. The workflow in `.github/workflows/gh-pages.yml` uses `personal_token: ${{ secrets.GH_PAGES_TOKEN }}` to publish `./dist`.
-4. Push to `main` to trigger the workflow. After success, your site will be available at:
+Langkah singkat:
+1. Buat Personal Access Token (PAT) di GitHub dengan izin `repo` dan `workflow`.
+2. Di GitHub → repository Anda → Settings → Secrets and variables → Actions, tambahkan secret:
+   - `GH_PAGES_TOKEN` = (isi dengan PAT Anda)
+   - `VITE_GEMINI_API_KEY` = (isi kalau mau dipakai waktu build di GitHub)
+3. Pastikan `vite.config.ts` punya `base: '/DAVID_AI_REVISI/'` supaya path cocok di GitHub Pages.
+4. Push ke branch `main` → workflow akan jalan otomatis. Jika berhasil, situs akan muncul di:
    `https://frgwnabim.github.io/DAVID_AI_REVISI/`
 
-If the Deploy step fails, open the Actions run page and check the **Deploy** step log for the error (permission/token issues are the most common).
+Jika langkah Deploy gagal, buka tab **Actions** di GitHub, pilih run terbaru, lalu buka log langkah **Deploy** untuk melihat pesan kesalahan (biasanya terkait izin/token).
 
-## 6) Security notes
-- Any `VITE_` env key becomes part of the client bundle and is public after build. For sensitive keys (like real production credentials), use a server-side proxy or backend to store and use the key.
-- This project contains `env.d.ts` to provide TypeScript types for `import.meta.env`.
+## 6) Hal penting tentang keamanan (bahasa gampang)
+- Kunci yang dimulai dengan `VITE_` akan dimasukkan ke file aplikasi yang bisa dilihat publik saat build. Jadi: **jangan** masukkan kunci sensitif yang harus dirahasiakan di sini. Jika kunci sangat rahasia, gunakan server/backend untuk menyimpan kunci dan memanggil API dari sana.
 
-## 7) Where to look in the code
-- Gemini API usage: `services/geminiService.ts`
-- Vite config & base path for GitHub Pages: `vite.config.ts`
-- Pages deploy workflow: `.github/workflows/gh-pages.yml`
-- Env types: `env.d.ts`
+## 7) Lokasi kode yang penting
+- Tempat pemanggilan Gemini: `services/geminiService.ts`
+- Konfigurasi Vite dan `base`: `vite.config.ts`
+- Workflow deploy: `.github/workflows/gh-pages.yml`
+- Tipe env untuk TypeScript: `env.d.ts`
 
 ---
 
-If you'd like, I can now delete the old banner image link and tidy up any remaining docs. Tell me if you want me to commit this update and push it to the repository (I can do that).
+Kalau mau, saya bisa bantu satu per satu: membuat secret di repo, mengubah workflow supaya pakai `GH_PAGES_TOKEN`, atau mengecek log Actions jika deploy gagal. Mau saya bantu yang mana?
